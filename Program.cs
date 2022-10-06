@@ -25,4 +25,14 @@ class Car
         waitingTime = rnd.Next(20, 80);
         isFuelling = false;
     }
+    public static System.Timers.Timer carCreator = new(1500);
+    public static void Main(string[] args)
+    {
+        //carCreator.Elapsed += XXXXXXXX;
+        carCreator.Enabled = true;
+        carCreator.AutoReset = true;
+        carCreator.Start();
+        Console.ReadKey();
+
+    }
 }
