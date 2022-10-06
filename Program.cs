@@ -25,14 +25,26 @@ class Car
         waitingTime = rnd.Next(20, 80);
         isFuelling = false;
     }
+
+    public static Car[] existingCars = { }; //cars that exist in the petrol station, can be waiting or fuelling.
+    public static Car newCar = new Car();
+    public static int carCounter = 0;
     public static System.Timers.Timer carCreator = new(1500);
     public static void Main(string[] args)
     {
-        //carCreator.Elapsed += XXXXXXXX;
+        carCreator.Elapsed += CarCreator_Elapsed;
         carCreator.Enabled = true;
         carCreator.AutoReset = true;
         carCreator.Start();
         Console.ReadKey();
+
+    }
+    private static void CarCreator_Elapsed(object sender, ElapsedEventArgs e)
+    {
+        existingCars = existingCars.Append(newCar).ToArray();
+        Console.WriteLine(existingCars[carCounter].type + " " + existingCars[carCounter].fuelInTank + " / " + existingCars[carCounter].maxFuelCapacity);
+        carCounter++;
+        newCar = new Car();
 
     }
 }
