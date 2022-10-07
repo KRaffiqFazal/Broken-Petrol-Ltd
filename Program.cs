@@ -10,6 +10,7 @@ class Car
     public int fuellingTime;
     public bool isFuelling;
     public System.Timers.Timer waitingTime;
+    public bool hasWaited;
     public Car()
     {
         String[] model = { "Car", "Van", "HGV" }; //array of car types available
@@ -27,6 +28,7 @@ class Car
         waitingTime.AutoReset = false;
         waitingTime.Enabled = true;
         isFuelling = false;
+        hasWaited = false;
     }
 
     public static Car[] existingCars = { }; //cars that exist in the petrol station, can be waiting or fuelling.
@@ -62,6 +64,12 @@ class Car
         carCreator.AutoReset = true;
         carCreator.Start();
         Console.ReadKey();
+        carCreator.Stop();
+        Console.WriteLine("All the vehicles that have left are: ");
+        foreach (Car car in leavingCars)
+        {
+            Console.WriteLine(car.type);
+        }
 
     }
     private static void CarCreator_Elapsed(object sender, ElapsedEventArgs e) //creates vehicles
@@ -78,11 +86,11 @@ class Car
         int i = 0;
         foreach (Car car in existingCars)
         {
-            if (car.waitingTime.Enabled == false)
+            if (car.waitingTime.Enabled == false && !car.hasWaited)
             {
                 leavingCars = leavingCars.Append(car).ToArray();
+                car.hasWaited = true;
                 Console.WriteLine("A vehicle has left " + car.type);
-                Console.WriteLine(leavingCars[i].type);
                 i++;
             }
         }
