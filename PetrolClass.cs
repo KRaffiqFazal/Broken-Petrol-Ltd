@@ -10,8 +10,9 @@ namespace Broken_Petrol_Ltd
     {
 
         public int pumpNumber;
-        public int lpgDispensed;
-        public int dieselDispensed;
+        public double lpgDispensed;
+        public double dieselDispensed;
+        public double unleadedDispensed;
         public bool inUse;
 
         public Pump(int pumpNum)
@@ -19,6 +20,7 @@ namespace Broken_Petrol_Ltd
             pumpNumber = pumpNum;
             lpgDispensed = 0;
             dieselDispensed = 0;
+            unleadedDispensed = 0;
             inUse = false;
 
         }
